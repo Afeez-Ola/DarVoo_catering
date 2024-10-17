@@ -1,12 +1,5 @@
-class NigerianCateringService {
+class DarVoo {
     constructor() {
-        this.menu = {
-            'Jollof Rice': 1500,
-            'Pounded Yam and Egusi Soup': 2000,
-            'Suya': 1000,
-            'Pepper Soup': 1200,
-            'Moi Moi': 800
-        };
         this.orders = [];
         this.businessWhatsApp = "+48517071489"; // Replace with your actual WhatsApp number
     }
@@ -98,7 +91,7 @@ class NigerianCateringService {
     }
 }
 
-const cateringService = new NigerianCateringService();
+const cateringService = new DarVoo();
 
 document.addEventListener('DOMContentLoaded', () => {
     cateringService.displayMenu();
@@ -170,3 +163,28 @@ function validateForm() {
 
     return isValid;
 }
+
+document.getElementById('order-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const orderItems = document.querySelectorAll('input[name="order-item"]:checked');
+
+    let orderMessage = `Hello, I'd like to place an order:\n\nName: ${name}\nPhone: ${phone}\n\nOrder Items:\n`;
+
+    orderItems.forEach(item => {
+        orderMessage += `- ${item.nextElementSibling.textContent}\n`;
+    });
+
+    orderMessage += "\nCould you please provide the prices for these items?";
+
+    // Encode the message for URL
+    const encodedMessage = encodeURIComponent(orderMessage);
+
+    // Replace 'your-whatsapp-number' with the actual WhatsApp number
+    const whatsappUrl = `https://wa.me/your-whatsapp-number?text=${encodedMessage}`;
+
+    // Open WhatsApp in a new tab
+    window.open(whatsappUrl, '_blank');
+});
