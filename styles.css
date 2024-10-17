@@ -65,42 +65,59 @@ nav ul li a:hover {
 }
 
 .hero {
-    background-image: url('path/to/your/hero-image.jpg');
+    background-image: url('restaurant.png');
     background-size: cover;
     background-position: center;
-    height: 100vh;
+    background-repeat: no-repeat;
+    height: 100vh; /* This makes the hero section full viewport height */
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: white;
+    position: relative;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
 }
 
 .hero-content {
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 2rem;
-    border-radius: 10px;
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    padding: 20px;
 }
 
 .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: 3em;
+    margin-bottom: 0.5em;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 1em;
 }
 
 .cta-button {
     display: inline-block;
-    background-color: var(--primary-color);
+    padding: 10px 20px;
+    background-color: #e67e22; /* Adjust color as needed */
     color: white;
-    padding: 0.8rem 2rem;
-    border-radius: 50px;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: bold;
+    border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
 .cta-button:hover {
-    background-color: #c62828;
+    background-color: #d35400; /* Darker shade for hover effect */
 }
 
 .menu-section, .order-section, .contact-section {
@@ -646,21 +663,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .contact-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 30px;
 }
 
-.contact-item i {
-    font-size: 24px;
+.contact-item svg {
+    width: 24px;
+    height: 24px;
     color: #ff6b6b;
     margin-right: 20px;
-    width: 40px;
-    height: 40px;
-    background-color: rgba(255, 107, 107, 0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-shrink: 0;
 }
 
 .contact-item div {
@@ -680,20 +692,46 @@ h1, h2, h3, h4, h5, h6 {
 
 .contact-form {
     flex: 1;
-    display: flex;
-    flex-direction: column;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .contact-form input,
 .contact-form textarea {
-    margin-bottom: 20px;
+    width: 100%;
     padding: 10px;
+    margin-bottom: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    font-size: 16px;
 }
 
 .contact-form textarea {
     height: 150px;
+    resize: vertical;
+}
+
+.contact-form .btn {
+    background-color: #ff6b6b;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form .btn:hover {
+    background-color: #ff5252;
+}
+
+@media (max-width: 768px) {
+    .contact-grid {
+        flex-direction: column;
+    }
 }
 
 /* Footer styles */
@@ -847,4 +885,38 @@ h1, h2, h3, h4, h5, h6 {
 
 .social-links a:hover {
     background-color: #fff;
+}
+
+.hero-header {
+    background-image: url('restaurant.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 100px 20px; /* Adjust padding as needed */
+    text-align: center;
+    color: white; /* Adjust text color to ensure visibility over the background */
+}
+
+.hero-header h1 {
+    font-size: 3em;
+    margin-bottom: 0.5em;
+}
+
+.hero-header p {
+    font-size: 1.2em;
+}
+
+/* Ensure the menu section doesn't have a background image */
+.menu-section {
+    background-image: none;
+    /* Add any specific styles for the menu section here */
+}
+
+.contact-item a {
+    text-decoration: none; /* Remove underline */
+    color: #e67e22; /* Change to your desired color (e.g., orange) */
+}
+
+.contact-item a:hover {
+    color: #d35400; /* Change color on hover (optional) */
 }

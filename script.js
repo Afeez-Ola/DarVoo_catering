@@ -164,27 +164,49 @@ function validateForm() {
     return isValid;
 }
 
-document.getElementById('order-form').addEventListener('submit', function(e) {
-    e.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    const orderForm = document.getElementById('order-form');
+    
+    if (orderForm) {
+        orderForm.addEventListener('submit', function(e) {
+            e.preventDefault();
 
-    const name = document.getElementById('name').value;
-    const phone = document.getElementById('phone').value;
-    const orderItems = document.querySelectorAll('input[name="order-item"]:checked');
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const orderItems = Array.from(document.querySelectorAll('input[name="order-item"]:checked'))
+                .map(item => item.nextElementSibling.querySelector('span').textContent)
+                .join(', ');
 
-    let orderMessage = `Hello, I'd like to place an order:\n\nName: ${name}\nPhone: ${phone}\n\nOrder Items:\n`;
+            if (name && phone && orderItems) {
+                // Prepare WhatsApp message
+                const message = `Hello DarVoo Catering, I would like to request a price for the following order:\n\nName: ${name}\nPhone: ${phone}\n\nOrder Items:\n${orderItems}`;
 
-    orderItems.forEach(item => {
-        orderMessage += `- ${item.nextElementSibling.textContent}\n`;
+                const whatsappUrl = `https://wa.me/436764022539?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            } else {
+                alert('Please fill in all required fields and select at least one item.');
+            }
+        });
+    } else {
+        console.error('Order form not found');
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.querySelector('.contact-form');
+
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = contactForm.querySelector('input[type="text"]').value;
+        const email = contactForm.querySelector('input[type="email"]').value;
+        const message = contactForm.querySelector('textarea').value;
+
+        // Here you can add your logic to send the form data to your server or email
+        console.log(`Name: ${name}, Email: ${email}, Message: ${message}`);
+
+        // Optionally, reset the form after submission
+        contactForm.reset();
+        alert('Thank you for your message! We will get back to you soon.');
     });
-
-    orderMessage += "\nCould you please provide the prices for these items?";
-
-    // Encode the message for URL
-    const encodedMessage = encodeURIComponent(orderMessage);
-
-    // Replace 'your-whatsapp-number' with the actual WhatsApp number
-    const whatsappUrl = `https://wa.me/your-whatsapp-number?text=${encodedMessage}`;
-
-    // Open WhatsApp in a new tab
-    window.open(whatsappUrl, '_blank');
 });
