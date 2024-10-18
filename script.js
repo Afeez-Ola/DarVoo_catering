@@ -1,7 +1,7 @@
 class DarVoo {
     constructor() {
         this.orders = [];
-        this.businessWhatsApp = "+48517071489"; // Replace with your actual WhatsApp number
+        this.businessWhatsApp = "+436764022539"; // Replace with your actual WhatsApp number
     }
 
     displayMenu() {
